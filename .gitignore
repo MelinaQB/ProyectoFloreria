@@ -1,0 +1,4 @@
+﻿back/node_modules/
+hanami-front/node_modules/
+dist/
+.env
