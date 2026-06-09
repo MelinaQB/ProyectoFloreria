@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, RefreshCw } from 'lucide-react';
+import { API_URL } from './config/api';
 
 export const AuthScreen = () => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ export const AuthScreen = () => {
     // --- 🔑 MODO INICIAR SESIÓN (CONEXIÓN ESTRICTA A NESTJS) ---
     if (isLogin) {
       try {
-        const response = await fetch('http://localhost:3000/usuarios/login', {
+        const response = await fetch(`${API_URL}/usuarios/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -109,7 +110,7 @@ export const AuthScreen = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/usuarios', {
+      const response = await fetch(`${API_URL}/usuarios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

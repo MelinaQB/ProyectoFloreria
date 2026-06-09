@@ -841,7 +841,7 @@
     text-transform: uppercase;
     display: flex;
     align-items: center;
-    justify-content: center; /* 👈 Aquí corregimos los dos puntos correctamente */
+    justify-content: center; 
     transition: var(--transition);
 }
 

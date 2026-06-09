@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Trash2, Plus, Edit2, Check, X, Scissors, AlertTriangle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Trash2, Edit2, Check, X, Scissors, AlertTriangle } from 'lucide-react';
+import { API_URL } from '../../config/api';
 
 interface Material {
   id: number;
@@ -25,15 +26,15 @@ export const MaterialesCRUD = () => {
   const [editDetalle, setEditDetalle] = useState('');
   const [editStock, setEditStock] = useState(0);
 
-  const API_URL = 'http://localhost:3000/materiales';
-
+  const API_URL_MATERIALES = `${API_URL}/materiales`;
+  
   const obtenerAdminIdReal = (): number => {
     return Number(localStorage.getItem('hanami_uid')) || 1;
   };
 
   const cargarMateriales = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL_MATERIALES);
       const data = await res.json();
       if (res.ok) setMateriales(data);
     } catch (err) {
@@ -52,7 +53,7 @@ export const MaterialesCRUD = () => {
     if (!nuevoNombre.trim() || !nuevoDetalle.trim()) return;
 
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(API_URL_MATERIALES, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,7 +77,7 @@ export const MaterialesCRUD = () => {
 
   const handleGuardarEdicion = async (id: number) => {
     try {
-      const res = await fetch(`${API_URL}/${id}`, {
+      const res = await fetch(`${API_URL_MATERIALES}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -101,7 +102,7 @@ export const MaterialesCRUD = () => {
     
     const adminId = obtenerAdminIdReal();
     try {
-      const res = await fetch(`${API_URL}/${id}?adminId=${adminId}`, { 
+      const res = await fetch(`${API_URL_MATERIALES}/${id}?adminId=${adminId}`, { 
         method: 'DELETE' 
       });
       if (res.ok) {

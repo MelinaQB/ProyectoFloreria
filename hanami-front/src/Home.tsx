@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, X, LogOut, Phone, Mail } from 'lucide-react';
 import { Footer } from './views/Footer';
 import { ProductDetails } from './views/ProductDetails';
+import { API_URL } from './config/api';
 
 interface CartItem {
   id: number;
@@ -42,8 +43,9 @@ export const Home = () => {
   const usuarioNombre = usuarioEmail ? usuarioEmail.split('@')[0] : '';
   const usuarioCelular = localStorage.getItem('hanami_celular');
 
-  const API_RAMOS = 'http://localhost:3000/ramos';
-  const API_VENTAS = 'http://localhost:3000/ventas';
+  const API_RAMOS = `${API_URL}/ramos`;
+  const API_VENTAS = `${API_URL}/ventas`;
+
 
   // 📥 JALAR CATÁLOGO REAL DESDE POSTGRESQL
   const cargarCatalogoPostgres = async () => {

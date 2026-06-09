@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Trash2, Users, Lightbulb } from 'lucide-react';
-
+import { API_URL } from '../../config/api';
 interface ClienteMetricas {
   id: number;
   nombre: string;
@@ -19,7 +19,7 @@ export const ClientesCRUD = () => {
   const cargarClientesReal = async () => {
     try {
       // 🔒 Conectamos a la ruta central donde calculamos los conteos y sumas de PostgreSQL
-      const response = await fetch('http://localhost:3000/usuarios');
+      const response = await fetch(`${API_URL}/usuarios`);
       const data = await response.json();
       if (response.ok) {
         setClientes(data);
@@ -42,7 +42,7 @@ export const ClientesCRUD = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/usuarios/${id}`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}`, {
         method: 'DELETE',
       });
 

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Package, Scissors, BarChart3, User, ShieldAlert, Clock, Mail, LogOut, ShoppingBag } from 'lucide-react'; 
+import { API_URL } from '../../config/api';
 
 // IMPORTAMOS TUS MÓDULOS EXISTENTES Y EL NUEVO DE VENTAS
 import { Estadisticas } from './Estadisticas';
@@ -37,14 +38,14 @@ export const AdminDashboard = () => {
   const [cargandoLogs, setCargandoLogs] = useState(true);
   
   // 🔒 EXTRACCIÓN 100% REAL DE LA SESIÓN ACTIVA DESDE LA BASE DE DATOS
-  const adminIdReal = Number(localStorage.getItem('hanami_uid'));
+  //const adminIdReal = Number(localStorage.getItem('hanami_uid'));
   const adminEmailReal = localStorage.getItem('hanami_user') || 'admin@hanami.com';
   const adminNombreReal = adminEmailReal.split('@')[0];
 
   // 1. Obtener la lista real de usuarios desde NestJS
   const obtenerUsuarios = async () => {
     try {
-      const response = await fetch('http://localhost:3000/usuarios');
+      const response = await fetch(`${API_URL}/usuarios`);
       const data = await response.json();
       if (response.ok) {
         setUsuarios(data);
@@ -59,7 +60,7 @@ export const AdminDashboard = () => {
   // 2. Obtener los logs de auditoría reales de PostgreSQL
   const obtenerLogsAuditoria = async () => {
     try {
-      const response = await fetch('http://localhost:3000/auditoria');
+      const response = await fetch(`${API_URL}/auditoria`);
       const data = await response.json();
       if (response.ok) {
         setLogs(data);
@@ -97,7 +98,7 @@ export const AdminDashboard = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/usuarios/${id}/rol`, {
+      const response = await fetch(`${API_URL}/usuarios/${id}/rol`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

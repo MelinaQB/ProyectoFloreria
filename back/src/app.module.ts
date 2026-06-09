@@ -11,14 +11,15 @@ import { EstadisticasModule } from './estadisticas/estadisticas.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '1234567', // Tu contraseña de pgAdmin
-      database: 'hanami_db',   // Tu base de datos de Hanami
-      autoLoadEntities: true,  // 🔒 SOLUCIÓN: Esto mapea automáticamente a 'Material' y las que vengan
-      synchronize: true,       // Obliga a PostgreSQL a crear las tablas faltantes al iniciar
+      host: process.env.DB_HOST || 'localhost',
+      port: Number(process.env.DB_PORT) || 5432,
+      username: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || '1234567',
+      database: process.env.DB_NAME || 'hanami_db',
+      autoLoadEntities: true,
+      synchronize: true,
     }),
+
     UsuariosModule,
     AuditoriaModule,
     MaterialesModule,

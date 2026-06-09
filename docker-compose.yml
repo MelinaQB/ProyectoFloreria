@@ -1,0 +1,36 @@
+services:
+
+  db:
+    image: postgres:18
+    container_name: hanami-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234567
+      POSTGRES_DB: hanami_db
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./back
+    container_name: hanami-back
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: 1234567
+      DB_NAME: hanami_db
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: ./hanami-front
+    container_name: hanami-front
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"

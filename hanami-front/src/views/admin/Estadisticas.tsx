@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { DollarSign, TrendingUp, ShoppingBag, Activity } from 'lucide-react';
+import { API_URL } from '../../config/api';
 
 interface MetricData {
   name: string;
@@ -25,7 +26,7 @@ export const Estadisticas = () => {
 
   const cargarMetricasReal = async () => {
     try {
-      const response = await fetch('http://localhost:3000/estadisticas/dashboard');
+      const response = await fetch(`${API_URL}/estadisticas/dashboard`);
       const dataReal: MetricData[] = await response.json();
 
       if (response.ok) {

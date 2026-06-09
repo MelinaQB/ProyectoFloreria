@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Plus, DollarSign, User, Calendar, Layers, X, Check, FileText } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ShoppingBag, Plus, User, Calendar, X, FileText } from 'lucide-react';
 // 📄 MOTORES PARA LA GENERACIÓN DEL REPORTE INMUTABLE EN PDF
 import jsPDF from 'jspdf';
+import { API_URL } from '../../config/api';
 import autoTable from 'jspdf-autotable';
 
 interface Ramo {
@@ -37,8 +38,8 @@ export const VentasCRUD = () => {
   const [ramoSeleccionadoId, setRamoSeleccionadoId] = useState('');
   const [cantidadVenta, setCantidadVenta] = useState(1);
 
-  const API_VENTAS = 'http://localhost:3000/ventas';
-  const API_RAMOS = 'http://localhost:3000/ramos';
+  const API_VENTAS = `${API_URL}/ventas`;
+  const API_RAMOS = `${API_URL}/ramos`;
 
   const obtenerAdminIdReal = (): number => {
     return Number(localStorage.getItem('hanami_uid')) || 1;

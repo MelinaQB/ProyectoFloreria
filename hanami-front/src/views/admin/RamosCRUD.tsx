@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Trash2, Plus, Layers, Check, X, AlertTriangle } from 'lucide-react';
-
+import { useState, useEffect } from 'react';
+import { Trash2, Plus, Layers, X } from 'lucide-react';
+import { API_URL } from '../../config/api';
 interface Material {
   id: number;
   nombre: string;
@@ -44,8 +44,8 @@ export const RamosCRUD = () => {
   const [materialSeleccionadoId, setMaterialSeleccionadoId] = useState('');
   const [cantidadMaterial, setCantidadMaterial] = useState(1);
 
-  const API_RAMOS = 'http://localhost:3000/ramos';
-  const API_MATERIALES = 'http://localhost:3000/materiales';
+  const API_RAMOS = `${API_URL}/ramos`;
+  const API_MATERIALES = `${API_URL}/materiales`;
 
   const obtenerAdminIdReal = (): number => {
     return Number(localStorage.getItem('hanami_uid')) || 1;
