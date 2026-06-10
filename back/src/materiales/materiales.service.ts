@@ -24,6 +24,11 @@ export class MaterialesService {
   }
 
   async create(createMaterialDto: CreateMaterialDto): Promise<Material> {
+
+    console.log('================================');
+    console.log('DTO RECIBIDO');
+    console.log(createMaterialDto);
+    console.log('================================');
     const { adminId, ...datosMaterial } = createMaterialDto;
     
     // 🔒 REPARACIÓN: Creamos el objeto y dejamos que TypeORM use directamente 

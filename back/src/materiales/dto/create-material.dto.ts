@@ -1,6 +1,7 @@
 export class CreateMaterialDto {
   nombre: string;
-  detalle: string; 
+  detalle: string;
   stock: number;
-  adminId: number; 
+  unidadesPorPaquete: number;
+  adminId: number;
 }
