@@ -28,12 +28,16 @@ export class MaterialesService {
     console.log('================================');
     console.log('DTO RECIBIDO');
     console.log(createMaterialDto);
-    console.log('================================');
     const { adminId, ...datosMaterial } = createMaterialDto;
     
     // 🔒 REPARACIÓN: Creamos el objeto y dejamos que TypeORM use directamente 
     // el valor numérico que tú escribiste en el formulario del Frontend
+    //const nuevo = this.materialRepository.create(datosMaterial);
     const nuevo = this.materialRepository.create(datosMaterial);
+
+    console.log('DTO =>', createMaterialDto);
+    console.log('DATOS MATERIAL =>', datosMaterial);
+    console.log('OBJETO TYPEORM =>', nuevo);
 
     const materialGuardado = await this.materialRepository.save(nuevo);
     const emailAdmin = await this.obtenerEmailAdmin(adminId);
