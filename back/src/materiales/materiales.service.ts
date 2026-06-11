@@ -25,32 +25,21 @@ export class MaterialesService {
 
   async create(createMaterialDto: CreateMaterialDto): Promise<Material> {
 
-    console.log('================================');
-    console.log('DTO RECIBIDO');
-    console.log(createMaterialDto);
+    console.log('DTO RECIBIDO:', createMaterialDto);
+
     const { adminId, ...datosMaterial } = createMaterialDto;
-    
-    // 🔒 REPARACIÓN: Creamos el objeto y dejamos que TypeORM use directamente 
-    // el valor numérico que tú escribiste en el formulario del Frontend
-    //const nuevo = this.materialRepository.create(datosMaterial);
+
+    console.log('DATOS MATERIAL:', datosMaterial);
+
     const nuevo = this.materialRepository.create(datosMaterial);
 
-    console.log('DTO =>', createMaterialDto);
-    console.log('DATOS MATERIAL =>', datosMaterial);
-    console.log('OBJETO TYPEORM =>', nuevo);
+    console.log('OBJETO NUEVO:', nuevo);
 
     const materialGuardado = await this.materialRepository.save(nuevo);
-    const emailAdmin = await this.obtenerEmailAdmin(adminId);
 
-    await this.auditoriaService.registrarLog(
-      adminId,
-      emailAdmin,
-      'CREACION_MATERIAL',
-      `El Administrador registró el insumo: [${materialGuardado.nombre} - ${materialGuardado.detalle}]. Almacenando ${materialGuardado.stock} paquetes de ${materialGuardado.unidadesPorPaquete} unidades cada uno.`
-    );
     return materialGuardado;
-  }
-  
+}
+
 
   async findAll(): Promise<Material[]> {
     return await this.materialRepository.find({ where: { activo: true }, order: { id: 'ASC' } });
